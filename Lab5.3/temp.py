@@ -25,6 +25,8 @@ class Disk(object):
         self.dxpos = xpos
         self.dypos = ypos
 
+    
+
     def cleardisk(self):
         t.clear()
         t.teleport(self.dxpos, self.dypos)
@@ -39,15 +41,32 @@ class Pole(object):
         self.pthick = thick
         self.plength = length
 
-
     def showpole(self):
-        pass
+        t.teleport(self.pxpos,self.pypos)
+        t.back(self.pthick//2)
+        t.fd(self.pthick)
+        t.left(90)
+        t.fd(self.plength)
+        t.left(90)
+        t.fd(self.pthick)
+        t.left(90)
+        t.fd(self.plength)
+        t.left(90)
+        t.fd(self.pthick//2)
 
     def pushdisk(self, disk):
-        pass
+        disk.showdisk()
+        self.stack.append(disk)
+    
 
     def popdisk(self):
-        pass
-
+        if self.stack == []:
+            return
+        
+        var = self.stack.pop()
+        var.cleardisk()
+        var.newpos(self.pxpos, self.plength * 2)
+        var.showdisk()
+        return var
 
 t.done()
